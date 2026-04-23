@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="az" data-theme="dark" data-palette="red">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5,viewport-fit=cover"/>
+<title>Zentyso2 — Rəsmi Kanal | Emir</title>
+<meta name="description" content="Zentyso2 — Emir'in rəsmi YouTube kanalı. 800+ abunəçi."/>
+<link rel="icon" id="fav" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23e53935'/><text x='50%25' y='55%25' font-size='16' font-family='Arial Black' font-weight='900' fill='white' text-anchor='middle' dominant-baseline='middle'>Z2</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader"><div class="ld-logo">Zentyso<span>2</span></div><div class="ld-bar"><div class="ld-fill"></div></div></div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<!-- COOKIE -->
+<div id="cookie">
+  <div class="ck-txt"><strong>Zentyso2</strong> — <span id="ck-t">Daha yaxşı təcrübə üçün kukilərdən istifadə edirik.</span></div>
+  <div class="ck-btns">
+    <button class="ck-ok" id="ck-ok" onclick="ckOk()">Qəbul et</button>
+    <button class="ck-no" id="ck-no" onclick="ckNo()">Rədd et</button>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg></button>
+
+<!-- ════════════════════════════════
+     NAVBAR
+════════════════════════════════ -->
+<nav>
+  <div class="nav-in">
+    <a href="#" class="logo">Zentyso<span>2</span></a>
+
+    <ul class="nav-ul">
+      <li><a href="#videos"  id="nv-vid">Videolar</a></li>
+      <li><a href="#about"   id="nv-ab">Haqqımda</a></li>
+      <li><a href="#cm-sec"  id="nv-cm">İcma</a></li>
+      <li><a href="#payment" id="nv-mb">Üzvlük</a></li>
+      <li><a href="#faq"     id="nv-fq">FAQ</a></li>
+    </ul>
+
+    <div class="nav-srch">
+      <input type="text" placeholder="Axtar…" autocomplete="off"
+             oninput="doSearch(this.value)" onblur="setTimeout(closeSrch,200)"/>
+      <span class="si"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M20 20l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <div class="s-drop" id="s-drop"></div>
+    </div>
+
+    <div class="nav-ctrl">
+      <!-- Language switcher -->
+      <div class="lang-sw">
+        <button class="lb on" data-lang="az" onclick="setLang('az')">AZ</button>
+        <button class="lb"    data-lang="tr" onclick="setLang('tr')">TR</button>
+        <button class="lb"    data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lb"    data-lang="ru" onclick="setLang('ru')">RU</button>
+      </div>
+      <!-- Theme switcher: Dark / Black / White -->
+      <div class="theme-sw">
+        <button class="tb on" data-theme="dark"  onclick="setTheme('dark')"  title="Tünd">🌙</button>
+        <button class="tb"    data-theme="black" onclick="setTheme('black')" title="Qara">⚫</button>
+        <button class="tb"    data-theme="white" onclick="setTheme('white')" title="Açıq">☀️</button>
+      </div>
+      <!-- Colour palette -->
+      <div class="pal-sw">
+        <div class="pd on" data-pal="red"    onclick="setPal('red')"    title="Qırmızı"></div>
+        <div class="pd"    data-pal="blue"   onclick="setPal('blue')"   title="Mavi"></div>
+        <div class="pd"    data-pal="green"  onclick="setPal('green')"  title="Yaşıl"></div>
+        <div class="pd"    data-pal="yellow" onclick="setPal('yellow')" title="Sarı"></div>
+        <div class="pd"    data-pal="purple" onclick="setPal('purple')" title="Bənövşəyi"></div>
+        <div class="pd"    data-pal="orange" onclick="setPal('orange')" title="Narıncı"></div>
+      </div>
+      <!-- User area -->
+      <div id="nua">
+        <button class="bp" style="padding:6px 11px;font-size:.72rem" onclick="openAuth('login')">Giriş</button>
+        <button class="bs" style="padding:6px 11px;font-size:.72rem" onclick="openAuth('register')">Qeydiyyat</button>
+      </div>
+      <!-- Hamburger -->
+      <div class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mob-m" id="mob-m">
+    <a href="#videos"  id="mnv-vid" onclick="closeMob()">Videolar</a>
+    <a href="#about"   id="mnv-ab"  onclick="closeMob()">Haqqımda</a>
+    <a href="#cm-sec"  id="mnv-cm"  onclick="closeMob()">İcma</a>
+    <a href="#payment" id="mnv-mb"  onclick="closeMob()">Üzvlük</a>
+    <a href="#faq"     id="mnv-fq"  onclick="closeMob()">FAQ</a>
+    <div class="mob-div"></div>
+    <div class="mob-tools">
+      <div class="lang-sw">
+        <button class="lb on" data-lang="az" onclick="setLang('az');closeMob()">AZ</button>
+        <button class="lb"    data-lang="tr" onclick="setLang('tr');closeMob()">TR</button>
+        <button class="lb"    data-lang="en" onclick="setLang('en');closeMob()">EN</button>
+        <button class="lb"    data-lang="ru" onclick="setLang('ru');closeMob()">RU</button>
+      </div>
+      <div class="theme-sw">
+        <button class="tb on" data-theme="dark"  onclick="setTheme('dark')">🌙</button>
+        <button class="tb"    data-theme="black" onclick="setTheme('black')">⚫</button>
+        <button class="tb"    data-theme="white" onclick="setTheme('white')">☀️</button>
+      </div>
+      <div class="pal-sw" style="display:flex">
+        <div class="pd on" data-pal="red"    onclick="setPal('red')"></div>
+        <div class="pd"    data-pal="blue"   onclick="setPal('blue')"></div>
+        <div class="pd"    data-pal="green"  onclick="setPal('green')"></div>
+        <div class="pd"    data-pal="yellow" onclick="setPal('yellow')"></div>
+        <div class="pd"    data-pal="purple" onclick="setPal('purple')"></div>
+        <div class="pd"    data-pal="orange" onclick="setPal('orange')"></div>
+      </div>
+    </div>
+    <div class="mob-auth">
+      <button class="bp" onclick="closeMob();openAuth('login')">Giriş</button>
+      <button class="bs" onclick="closeMob();openAuth('register')">Qeydiyyat</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════
+     AUTH MODAL
+════════════════════════════════ -->
+<div id="auth-ov" class="auth-ov" onclick="if(event.target===this)closeAuth()">
+  <div class="auth-bx">
+    <button class="auth-cl" onclick="closeAuth()">✕</button>
+    <div class="auth-logo">Zentyso<span>2</span></div>
+    <p class="auth-tag">İcmaya qoşul, paylaş, böyü!</p>
+    <div class="auth-tabs">
+      <button class="at on" data-tab="login"    onclick="switchTab('login')">Giriş</button>
+      <button class="at"    data-tab="register" onclick="switchTab('register')">Qeydiyyat</button>
+    </div>
+    <div id="auth-al" class="auth-al"></div>
+
+    <!-- LOGIN FORM -->
+    <form id="lf" class="auth-fm" onsubmit="doLogin(event)">
+      <div class="af">
+        <label>Email</label>
+        <div class="iw">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <input id="l-em" type="email" placeholder="email@example.com" required/>
+        </div><div class="a-err" id="l-em-e"></div>
+      </div>
+      <div class="af">
+        <label>Şifrə</label>
+        <div class="iw">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+          <input id="l-pw" type="password" placeholder="Şifrəniz" required/>
+          <button type="button" class="pw-tg" onclick="togglePw('l-pw',this)"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></button>
+        </div><div class="a-err" id="l-pw-e"></div>
+      </div>
+      <div class="auth-fgt" onclick="forgotPw()">Şifrəmi unutdum</div>
+      <button type="submit" class="auth-sub">Giriş Et →</button>
+      <div class="auth-div">Demo hesablar</div>
+      <div style="font-size:.72rem;color:var(--txd);text-align:center;line-height:1.8">
+        📧 emir@zentyso2.com &nbsp;🔑 Emir2025!<br>
+        📧 aysel@demo.com &nbsp;🔑 Demo1234!
+      </div>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="rf" class="auth-fm" style="display:none" onsubmit="doReg(event)">
+      <div class="af">
+        <label>Ad Soyad</label>
+        <div class="iw"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          <input id="r-dn" type="text" placeholder="Emir Əliyev" required/></div>
+        <div class="a-err" id="r-dn-e"></div>
+      </div>
+      <div class="af">
+        <label>İstifadəçi adı</label>
+        <div class="iw"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93V4.07c3.94.49 7 3.85 7 7.93s-3.06 7.44-7 7.93z"/></svg>
+          <input id="r-un" type="text" placeholder="emir_z2" required/></div>
+        <div class="a-err" id="r-un-e"></div>
+      </div>
+      <div class="af">
+        <label>Email</label>
+        <div class="iw"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <input id="r-em" type="email" placeholder="email@example.com" required/></div>
+        <div class="a-err" id="r-em-e"></div>
+      </div>
+      <div class="af">
+        <label>Şifrə</label>
+        <div class="iw"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+          <input id="r-pw" type="password" placeholder="Ən azı 6 simvol" required oninput="pwStr(this.value)"/>
+          <button type="button" class="pw-tg" onclick="togglePw('r-pw',this)"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></button>
+        </div>
+        <div class="pw-str"><div class="pw-bar"><div class="pw-f" id="pw-f"></div></div><div class="pw-lb" id="pw-lb"></div></div>
+        <div class="a-err" id="r-pw-e"></div>
+      </div>
+      <div class="af">
+        <label>Şifrə Təkrar</label>
+        <div class="iw"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+          <input id="r-pw2" type="password" placeholder="Şifrəni təkrar et" required/></div>
+        <div class="a-err" id="r-pw2-e"></div>
+      </div>
+      <div class="af">
+        <label>Avatar</label>
+        <div class="av-p">
+          <div class="av-o on" onclick="pickAv(this,'😎')">😎</div>
+          <div class="av-o" onclick="pickAv(this,'🚀')">🚀</div>
+          <div class="av-o" onclick="pickAv(this,'🌸')">🌸</div>
+          <div class="av-o" onclick="pickAv(this,'🎬')">🎬</div>
+          <div class="av-o" onclick="pickAv(this,'🔥')">🔥</div>
+          <div class="av-o" onclick="pickAv(this,'🎵')">🎵</div>
+          <div class="av-o" onclick="pickAv(this,'💡')">💡</div>
+          <div class="av-o" onclick="pickAv(this,'⚡')">⚡</div>
+          <div class="av-o" onclick="pickAv(this,'🎮')">🎮</div>
+          <div class="av-o" onclick="pickAv(this,'🌍')">🌍</div>
+        </div>
+      </div>
+      <button type="submit" class="auth-sub">Qeydiyyatdan Keç →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PROFILE MODAL
+════════════════════════════════ -->
+<div id="pf-ov" class="pf-ov" onclick="if(event.target===this)closePf()">
+  <div class="pf-bx">
+    <div class="pf-ban"><button class="pf-bcl" onclick="closePf()">✕</button></div>
+    <div class="pf-hd">
+      <div class="pf-av-big" id="pf-av-big">😎</div>
+      <button class="pf-flw-btn" id="pf-flw-btn">➕ İzlə</button>
+    </div>
+    <div class="pf-info">
+      <div class="pf-dn"  id="pf-dn"></div>
+      <div class="pf-hnd" id="pf-hnd"></div>
+      <div class="pf-bio" id="pf-bio"></div>
+      <div class="pf-sts">
+        <div class="pst"><strong id="pf-pc">0</strong><span>Yazı</span></div>
+        <div class="pst"><strong id="pf-fc">0</strong><span>İzləyici</span></div>
+        <div class="pst"><strong id="pf-fg">0</strong><span>İzlənir</span></div>
+      </div>
+    </div>
+    <div class="pf-tabs">
+      <button class="ptab on" data-tab="posts"     onclick="swPfTab('posts')">📝 Yazılar</button>
+      <button class="ptab"    data-tab="followers" onclick="swPfTab('followers')">👥 İzləyicilər</button>
+      <button class="ptab"    data-tab="following" onclick="swPfTab('following')">➕ İzlənilər</button>
+    </div>
+    <div class="pf-cnt">
+      <div class="pf-pn on" id="pf-posts"></div>
+      <div class="pf-pn"    id="pf-followers"></div>
+      <div class="pf-pn"    id="pf-following"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div id="ep-ov" class="ep-ov" onclick="if(event.target===this)closeEp()">
+  <div class="ep-bx">
+    <button class="ep-cl" onclick="closeEp()">✕</button>
+    <h3>Profili Düzəlt</h3>
+    <div class="ep-f"><label>Ad Soyad</label><input type="text" id="ep-dn" placeholder="Adınız"/></div>
+    <div class="ep-f"><label>Bio</label><textarea id="ep-bio" rows="3" placeholder="Özünüz haqqında…"></textarea></div>
+    <button class="auth-sub" onclick="saveEp()">Saxla</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-c">
+      <div class="h-badge" id="h-badge">YouTube Kanalı</div>
+      <h1>
+        <span id="h-gr">Xoş gəldiniz</span><br>
+        <span class="hl">Zentyso2</span><span id="h-sfx">-yə</span>
+      </h1>
+      <p class="h-desc" id="h-desc">Keyfiyyətli məzmun, maraqlı videolar. 800+ abunəçi bizimlə. Sən də qoşul!</p>
+      <div class="h-btns">
+        <a href="https://www.youtube.com/@Zentyso2" target="_blank" rel="noopener" class="bp">
+          <svg class="yt-i" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+          <span id="btn-sub">Abunə Ol</span>
+        </a>
+        <a href="#videos" class="bs" id="btn-w">Videoları İzlə</a>
+      </div>
+      <div class="h-stats">
+        <div class="stat"><strong>800+</strong><span id="st-sub">Abunəçi</span></div>
+        <div class="stat"><strong>100+</strong><span id="st-vid">Video</span></div>
+        <div class="stat"><strong id="st-freq">Hər Həftə</strong><span id="st-cnt">Yeni Məzmun</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     VIDEOS  (sadəcə 3 video, kanal embed yoxdur)
+════════════════════════════════ -->
+<section id="videos">
+  <div class="container">
+    <div class="sh fi">
+      <p class="sl" id="vid-lbl">Seçilmiş</p>
+      <h2 class="stt" id="vid-ti">Populyar Videolar</h2>
+      <p class="sd"  id="vid-de">Ən çox baxılan videolarımız.</p>
+    </div>
+    <!-- Skeleton -->
+    <div class="vids-g" id="sk-grid">
+      <div class="skel"><div class="sk-t"></div><div class="sk-l"></div><div class="sk-l s"></div></div>
+      <div class="skel"><div class="sk-t"></div><div class="sk-l"></div><div class="sk-l s"></div></div>
+      <div class="skel"><div class="sk-t"></div><div class="sk-l"></div><div class="sk-l s"></div></div>
+    </div>
+    <!-- Real videos -->
+    <div class="vids-g" id="real-vids" style="display:none">
+      <div class="vc fi">
+        <div class="if-w"><iframe src="https://www.youtube.com/embed/RWX8ssf9tY0" title="Video 1"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+          allowfullscreen loading="lazy"></iframe></div>
+        <div class="vi"><p class="vt" id="tag1">Populyar</p><h3 class="v-ttl">Birinci Video</h3><p class="v-met">Zentyso2</p></div>
+      </div>
+      <div class="vc fi">
+        <div class="if-w"><iframe src="https://www.youtube.com/embed/gkaP9umANpo" title="Video 2"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+          allowfullscreen loading="lazy"></iframe></div>
+        <div class="vi"><p class="vt fire" id="tag2">Trend</p><h3 class="v-ttl">İkinci Video</h3><p class="v-met">Zentyso2</p></div>
+      </div>
+      <div class="vc fi">
+        <div class="if-w"><iframe src="https://www.youtube.com/embed/PpXH1I0SHCE" title="Video 3"
+          allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+          allowfullscreen loading="lazy"></iframe></div>
+        <div class="vi"><p class="vt" id="tag3">Seçilmiş</p><h3 class="v-ttl">Üçüncü Video</h3><p class="v-met">Zentyso2</p></div>
+      </div>
+    </div>
+    <div class="vids-more">
+      <a href="https://www.youtube.com/@Zentyso2/videos" target="_blank" rel="noopener" class="bs">
+        <svg class="yt-i" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        Bütün Videolar →
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     FEATURES
+════════════════════════════════ -->
+<section class="feat-sec">
+  <div class="container">
+    <div class="sh fi">
+      <p class="sl" id="feat-lbl">Özəlliklər</p>
+      <h2 class="stt" id="feat-ti">Nə Təklif Edirik?</h2>
+      <p class="sd"   id="feat-de">Zentyso2-nin bütün imkanları.</p>
+    </div>
+    <div class="feat-g">
+      <div class="fc fi"><div class="fc-ic">🎬</div><div class="fc-ti" id="f1-ti">Keyfiyyətli Video</div><div class="fc-de" id="f1-de">Hər həftə yeni videolar.</div></div>
+      <div class="fc fi"><div class="fc-ic">👥</div><div class="fc-ti" id="f2-ti">İcma</div><div class="fc-de" id="f2-de">İnsanlarla əlaqə qur, paylaş.</div></div>
+      <div class="fc fi"><div class="fc-ic">📝</div><div class="fc-ti" id="f3-ti">Blog</div><div class="fc-de" id="f3-de">Maraqlı yazılar, texniki məzmun.</div></div>
+      <div class="fc fi"><div class="fc-ic">🔒</div><div class="fc-ti" id="f4-ti">Üzvlük</div><div class="fc-de" id="f4-de">Pro/VIP ol, eksklüziv məzmun al.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     ABOUT
+════════════════════════════════ -->
+<section class="ab-sec" id="about">
+  <div class="container">
+    <div class="sh fi">
+      <p class="sl" id="ab-lbl">Kanal Sahibi</p>
+      <h2 class="stt" id="ab-ti">Haqqımda</h2>
+    </div>
+    <div class="ab-w fi">
+      <div class="ab-av">👑</div>
+      <div class="ab-i">
+        <div class="ab-bdg">⭐ Zentyso2 Kanalı</div>
+        <h2 id="ab-n">Salam, mən Emirəm 👋</h2>
+        <p  id="ab-de">Zentyso2 kanalının sahibiyəm. Keyfiyyətli məzmun yaradıram. 800+ abunəçi!</p>
+        <div class="soc-r">
+          <a href="https://www.youtube.com/@Zentyso2" target="_blank" rel="noopener" class="s-a">
+            <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>YouTube
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" class="s-a">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>Instagram
+          </a>
+          <a href="https://tiktok.com/" target="_blank" rel="noopener" class="s-a">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>TikTok
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     NEWSLETTER
+════════════════════════════════ -->
+<section class="nl-s">
+  <div class="container">
+    <div class="nl-in fi">
+      <h2 id="nl-ti">📬 Yeni Videolardan Xəbər Al</h2>
+      <p  id="nl-de">Email daxil et, ilk sən bil!</p>
+      <div class="nl-f">
+        <input type="email" id="nl-inp" placeholder="email@example.com"/>
+        <button onclick="nlSub()" id="nl-btn">Abunə Ol</button>
+      </div>
+      <p class="nl-ok" id="nl-ok">✅ Uğurla abunə oldunuz!</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     COMMUNITY
+════════════════════════════════ -->
+<section class="cm-s" id="cm-sec">
+  <div class="container">
+    <div class="sh fi" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px">
+      <div>
+        <p class="sl" id="cm-lbl">İcma</p>
+        <h2 class="stt" style="margin-bottom:0" id="cm-ti">Blog & İcma</h2>
+      </div>
+      <div class="ff-w" style="margin-bottom:0">
+        <button class="ff on" data-filter="all"       id="ff-all" onclick="setFF('all')">🌍 Hamısı</button>
+        <button class="ff"    data-filter="following" id="ff-flw" onclick="setFF('following')">👥 İzlədiklərim</button>
+      </div>
+    </div>
+
+    <div class="cm-ly">
+      <!-- FEED -->
+      <div>
+        <!-- Guest prompt -->
+        <div class="lp-bx" id="lp-bx" style="display:none">
+          <div class="lp-ti" id="lp-ti">🔐 İcmaya Qoşul</div>
+          <p id="lp-de">Yazı paylaşmaq üçün giriş et.</p>
+          <div class="lp-bns">
+            <button class="bp" id="lp-li" onclick="openAuth('login')">Giriş Et</button>
+            <button class="bs" id="lp-re" onclick="openAuth('register')">Qeydiyyat</button>
+          </div>
+        </div>
+
+        <!-- Write post box -->
+        <div class="wp-bx" id="wp-bx">
+          <div class="wp-top">
+            <div class="wp-av" id="wp-av">😎</div>
+            <textarea id="wp-body" placeholder="Nə düşünürsən?" rows="3"></textarea>
+          </div>
+          <div class="wp-ft">
+            <div class="wp-ir">
+              <input type="text" class="wp-inp" id="wp-title" placeholder="Başlıq"/>
+              <input type="text" class="wp-inp" id="wp-tags"  placeholder="#teq"/>
+            </div>
+            <button class="wp-sb" id="wp-send" onclick="submitPost()">📤 Paylaş</button>
+          </div>
+        </div>
+
+        <!-- Post feed -->
+        <div class="post-feed" id="post-feed">
+          <div class="empty-s"><div class="ei">⏳</div><p>Yüklənir…</p></div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="cm-sb">
+        <div class="sb-c">
+          <h4 id="tm-ti">🏆 Top Üzvlər</h4>
+          <div id="top-m"></div>
+        </div>
+        <div class="sb-c">
+          <h4 id="tr-ti">🔥 Trend Teqlər</h4>
+          <div class="tr-tags" id="tr-tags"></div>
+        </div>
+        <div class="sb-c">
+          <h4 id="st-cm-ti">📊 İcma</h4>
+          <div style="font-size:.82rem;color:var(--txm);display:flex;flex-direction:column;gap:5px">
+            <span><span id="st-mb">Üzv</span>: <strong style="color:var(--ac)" id="st-mc">4</strong></span>
+            <span><span id="st-po">Yazı</span>: <strong style="color:var(--ac)" id="st-pc">4</strong></span>
+            <span><span id="st-co">Şərh</span>: <strong style="color:var(--ac)" id="st-cc">3</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     PAYMENT
+════════════════════════════════ -->
+<section class="pay-s" id="payment">
+  <div class="container">
+    <div class="sh fi">
+      <p class="sl" id="pay-lbl">Üzvlük</p>
+      <h2 class="stt" id="pay-ti">Plan Seçin</h2>
+      <p class="sd"   id="pay-de">Özünüzə uyğun planı seçin.</p>
+    </div>
+    <div class="plans-g fi">
+      <!-- FREE -->
+      <div class="plan">
+        <div class="pl-ic">🆓</div>
+        <div class="pl-n" id="fn">Pulsuz</div>
+        <div class="pl-d" id="fd">Başlanğıc üçün ideal.</div>
+        <div class="pl-p"><span class="cur">₼</span><span class="amt">0</span><span class="per">/ay</span></div>
+        <ul class="pl-f">
+          <li><span class="ck">✓</span> <span id="f_vid1">Videolara giriş</span></li>
+          <li><span class="ck">✓</span> <span id="f_cm1">İcma girişi</span></li>
+          <li><span class="ck">✓</span> <span id="f_bl1">Blog</span></li>
+          <li class="off"><span class="ck">✗</span> <span id="f_ex1">Eksklüziv məzmun</span></li>
+          <li class="off"><span class="ck">✗</span> <span id="f_dc1">VIP Discord</span></li>
+        </ul>
+        <button class="pl-btn out" id="b-fr" onclick="openPay('free')">Başla</button>
+      </div>
+
+      <!-- PRO (popular) -->
+      <div class="plan pop">
+        <span class="pop-b" id="pln-pop">⭐ Ən Populyar</span>
+        <div class="pl-ic">⭐</div>
+        <div class="pl-n" id="pn">Pro Üzv</div>
+        <div class="pl-d" id="pd-t">Ən populyar seçim.</div>
+        <div class="pl-p"><span class="cur">₼</span><span class="amt">4.99</span><span class="per">/ay</span></div>
+        <ul class="pl-f">
+          <li><span class="ck">✓</span> <span id="f_vid2">Videolara giriş</span></li>
+          <li><span class="ck">✓</span> <span id="f_cm2">İcma girişi</span></li>
+          <li><span class="ck">✓</span> <span id="f_bl2">Blog</span></li>
+          <li><span class="ck">✓</span> <span id="f_ex2">Eksklüziv məzmun</span></li>
+          <li><span class="ck">✓</span> <span id="f_dr2">Birbaşa əlaqə</span></li>
+          <li class="off"><span class="ck">✗</span> <span id="f_dc2">VIP Discord</span></li>
+        </ul>
+        <button class="pl-btn fill" id="b-pr" onclick="openPay('pro')">Pro Seç</button>
+      </div>
+
+      <!-- VIP -->
+      <div class="plan">
+        <div class="pl-ic">👑</div>
+        <div class="pl-n" id="vn">VIP Üzv</div>
+        <div class="pl-d" id="vd">Tam dəstək, hər şey daxil.</div>
+        <div class="pl-p"><span class="cur">₼</span><span class="amt">9.99</span><span class="per">/ay</span></div>
+        <ul class="pl-f">
+          <li><span class="ck">✓</span> <span id="f_vid3">Videolara giriş</span></li>
+          <li><span class="ck">✓</span> <span id="f_cm3">İcma girişi</span></li>
+          <li><span class="ck">✓</span> <span id="f_bl3">Blog</span></li>
+          <li><span class="ck">✓</span> <span id="f_ex3">Eksklüziv məzmun</span></li>
+          <li><span class="ck">✓</span> <span id="f_dc3">VIP Discord</span></li>
+        </ul>
+        <button class="pl-btn out" id="b-vp" onclick="openPay('vip')">VIP Seç</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT MODAL -->
+<div id="pm-ov" class="pm-ov" onclick="if(event.target===this)closePay()">
+  <div class="pm-bx">
+    <button class="pm-cl" onclick="closePay()">✕</button>
+    <h2 class="pm-ti">Ödənişi Tamamla</h2>
+    <p class="pm-su">Məlumatlarınız 256-bit SSL ilə qorunur.</p>
+    <div class="pm-sm">
+      <span class="pm-sn" id="pm-sn">Plan</span>
+      <span class="pm-sp" id="pm-sp">0 ₼/ay</span>
+    </div>
+    <!-- Form area -->
+    <div id="pm-fm" style="display:flex">
+      <form id="pm-fm-el" class="pm-fm" onsubmit="submitPay(event)">
+        <div class="pf"><label id="pf-n-l">Ad Soyad</label><input type="text" placeholder="Emir Əliyev" required/></div>
+        <div class="pf"><label id="pf-e-l">Email</label><input type="email" placeholder="email@example.com" required/></div>
+        <div class="pf">
+          <label id="pf-c-l">Kart Nömrəsi</label>
+          <div class="pm-cards"><span class="pm-ci">VISA</span><span class="pm-ci">MC</span><span class="pm-ci">AMEX</span></div>
+          <input type="text" id="pm-cn" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)" maxlength="19" required/>
+        </div>
+        <div class="pf-r">
+          <div class="pf"><label id="pf-exp-l">Son Tarix</label><input type="text" placeholder="MM/YY" oninput="fmtExp(this)" maxlength="5" required/></div>
+          <div class="pf"><label id="pf-cv-l">CVV</label><input type="text" placeholder="123" oninput="fmtCvv(this)" maxlength="3" required/></div>
+        </div>
+        <div class="pm-sec"><svg viewBox="0 0 24 24"><path d="M12 2L4 5v6c0 5.25 3.5 10.15 8 11.35C16.5 21.15 20 16.25 20 11V5l-8-3z"/></svg><span id="pm-sec-t">256-bit SSL şifrəli.</span></div>
+        <button type="submit" class="pm-sub" id="pm-sbtn">💳 Ödənişi Tamamla</button>
+      </form>
+    </div>
+    <!-- Success -->
+    <div class="pm-ok" id="pm-ok">
+      <div class="pm-ok-ic">🎉</div>
+      <h3 id="pm-ok-ti">Ödəniş Uğurlu!</h3>
+      <p  id="pm-ok-de">Hesabınız aktivdir. Xoş gəldiniz!</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════
+     FAQ
+════════════════════════════════ -->
+<section class="faq-s" id="faq">
+  <div class="container">
+    <div class="sh fi">
+      <p class="sl" id="fq-lbl">Suallar</p>
+      <h2 class="stt" id="fq-ti">Tez-tez soruşulanlar</h2>
+    </div>
+    <div class="faq-l fi">
+      <div class="faq-i">
+        <div class="faq-q" onclick="toggleFaq(this)"><span id="q1">Nə vaxt yeni video yükləyirsən?</span><div class="faq-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div>
+        <div class="faq-a" id="a1">Hər həftə ən azı 1 yeni video.</div>
+      </div>
+      <div class="faq-i">
+        <div class="faq-q" onclick="toggleFaq(this)"><span id="q2">İcmada necə yazı paylaşa bilərəm?</span><div class="faq-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div>
+        <div class="faq-a" id="a2">Qeydiyyatdan keç, giriş et, paylaş.</div>
+      </div>
+      <div class="faq-i">
+        <div class="faq-q" onclick="toggleFaq(this)"><span id="q3">Əməkdaşlıq üçün necə əlaqə etmək?</span><div class="faq-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div>
+        <div class="faq-a" id="a3">Sosial media vasitəsilə DM at.</div>
+      </div>
+      <div class="faq-i">
+        <div class="faq-q" onclick="toggleFaq(this)"><span id="q4">Pro/VIP nə verir?</span><div class="faq-ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div>
+        <div class="faq-a" id="a4">Pro — eksklüziv məzmun. VIP — Discord + birbaşa əlaqə.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="ft-g">
+      <div class="ft-c">
+        <a href="#" class="logo" style="display:inline-block;margin-bottom:10px">Zentyso<span>2</span></a>
+        <p id="ft-de">Emir'in rəsmi kanalı. 800+ abunəçi. Hər həftə yeni məzmun.</p>
+      </div>
+      <div class="ft-c">
+        <h4 id="ft-n">Naviqasiya</h4>
+        <a href="#videos"  id="ft-vid">Videolar</a>
+        <a href="#about"   id="ft-ab">Haqqımda</a>
+        <a href="#cm-sec"  id="ft-cm">İcma</a>
+        <a href="#payment" id="ft-mb">Üzvlük</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="ft-c">
+        <h4 id="ft-s">Sosial Media</h4>
+        <a href="https://www.youtube.com/@Zentyso2" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://instagram.com/"            target="_blank" rel="noopener">Instagram</a>
+        <a href="https://tiktok.com/"               target="_blank" rel="noopener">TikTok</a>
+        <a href="https://twitter.com/"              target="_blank" rel="noopener">Twitter / X</a>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p class="ft-cp" id="ft-cp">© 2025 Zentyso2 · Emir. Bütün hüquqlar qorunur.</p>
+      <div class="ft-soc">
+        <a href="https://www.youtube.com/@Zentyso2" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        </a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ★ JAVASCRIPT ★ -->
+<script src="script.js"></script>
+</body>
+</html>
